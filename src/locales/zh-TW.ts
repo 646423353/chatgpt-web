@@ -46,17 +46,24 @@ export default {
     deleteMessageConfirm: '是否刪除此訊息?',
     deleteHistoryConfirm: '確定刪除此紀錄?',
     clearHistoryConfirm: '確定清除紀錄?',
+<<<<<<< HEAD
     backApp: '退出ChatGPT',
     backAppConfirm: '是否退出ChatGPT?',
     backAppFailed: '退出失败',
+=======
+    preview: '預覽',
+    showRawText: '顯示原文',
+>>>>>>> c3f431118b186bed950a4d673a5e85be2c976e23
   },
   setting: {
     setting: '設定',
     general: '總覽',
+    advanced: '高級',
     config: '設定',
     avatarLink: '頭貼連結',
     name: '名稱',
     description: '描述',
+    role: '角色設定',
     resetUserInfo: '重設使用者資訊',
     chatHistory: '紀錄',
     theme: '主題',

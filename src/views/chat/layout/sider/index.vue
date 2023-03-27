@@ -17,7 +17,13 @@ const show = ref(false)
 const collapsed = computed(() => appStore.siderCollapsed)
 
 function handleAdd() {
+<<<<<<< HEAD
   chatStore.addHistory({ title: '新对话', uuid: Date.now(), isEdit: false })
+=======
+  chatStore.addHistory({ title: 'New Chat', uuid: Date.now(), isEdit: false })
+  if (isMobile.value)
+    appStore.setSiderCollapsed(true)
+>>>>>>> c3f431118b186bed950a4d673a5e85be2c976e23
 }
 
 function handleUpdateCollapsed() {
