@@ -4,8 +4,11 @@ import MarkdownIt from 'markdown-it'
 import mdKatex from '@traptitech/markdown-it-katex'
 import mila from 'markdown-it-link-attributes'
 import hljs from 'highlight.js'
+import { NButton, useMessage } from 'naive-ui'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { SvgIcon } from '@/components/common'
+import { copyText } from '@/utils/format'
 
 interface Props {
   inversion?: boolean
@@ -19,6 +22,8 @@ const props = defineProps<Props>()
 const { isMobile } = useBasicLayout()
 
 const textRef = ref<HTMLElement>()
+
+const message = useMessage()
 
 const mdi = new MarkdownIt({
   linkify: true,
@@ -58,6 +63,16 @@ function highlightBlock(str: string, lang?: string) {
   return `<pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">${lang}</span><span class="code-block-header__copy">${t('chat.copyCode')}</span></div><code class="hljs code-block-body ${lang}">${str}</code></pre>`
 }
 
+function handleCopy() {
+  try {
+    copyText({ text: props.text ?? '' })
+    message.success('复制成功')
+  }
+  catch (error) {
+    message.error('复制失败，请重试')
+  }
+}
+
 defineExpose({ textRef })
 </script>
 
@@ -70,6 +85,14 @@ defineExpose({ textRef })
       <div ref="textRef" class="leading-relaxed break-words">
         <div v-if="!inversion" class="markdown-body" v-html="text" />
         <div v-else class="whitespace-pre-wrap" v-text="text" />
+        <div v-if="!inversion" class="text-right dark:text-white text-black text-xs">
+          <NButton text size="tiny" color="#333" @click="handleCopy">
+            <template #icon>
+              <SvgIcon icon="ri:file-copy-2-line" />
+            </template>
+            复制
+          </NButton>
+        </div>
       </div>
     </template>
   </div>

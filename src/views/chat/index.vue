@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
+import { NAlert, NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -21,6 +21,7 @@ let controller = new AbortController()
 const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
 
 const route = useRoute()
+const router = useRouter()
 const dialog = useDialog()
 const ms = useMessage()
 
@@ -46,6 +47,9 @@ const promptStore = usePromptStore()
 
 // 使用storeToRefs，保证store修改后，联想部分能够重新渲染
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore)
+
+if (!window.PosObj && !location.href.includes('isdev=true'))
+  router.push('/error')
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
 dataSources.value.forEach((item, index) => {
@@ -355,6 +359,29 @@ function handleExport() {
   })
 }
 
+function handleBackApp() {
+  if (loading.value)
+    return
+
+  const d = dialog.warning({
+    title: t('chat.backApp'),
+    content: t('chat.backAppConfirm'),
+    positiveText: t('common.yes'),
+    negativeText: t('common.no'),
+    onPositiveClick: async () => {
+      try {
+        window.PosObj.back()
+      }
+      catch (error: any) {
+        ms.error(t('chat.backAppFailed'))
+      }
+      finally {
+        d.loading = false
+      }
+    },
+  })
+}
+
 function handleDelete(index: number) {
   if (loading.value)
     return
@@ -467,6 +494,7 @@ onUnmounted(() => {
       :using-context="usingContext"
       @export="handleExport"
       @toggle-using-context="toggleUsingContext"
+      @back-app="handleBackApp"
     />
     <main class="flex-1 overflow-hidden">
       <div
@@ -480,9 +508,24 @@ onUnmounted(() => {
           :class="[isMobile ? 'p-2' : 'p-4']"
         >
           <template v-if="!dataSources.length">
-            <div class="flex items-center justify-center mt-4 text-center text-neutral-300">
-              <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" />
-              <span>Aha~</span>
+            <div class="flex items-center justify-center mt-4 text-center text-neutral-600">
+              <!-- <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" /> -->
+              <span>请使用底部对话框开始与chatGPT对话，您也可以追问。</span>
+            </div>
+            <div class="mt-4">
+              <NAlert :show-icon="false">
+                示例：用通俗方式解释什么是量子计算？
+              </NAlert>
+            </div>
+            <div class="mt-2">
+              <NAlert :show-icon="false">
+                给10岁孩子的过生日有什么创意的点子？
+              </NAlert>
+            </div>
+            <div class="mt-2">
+              <NAlert :show-icon="false">
+                我怎么用JS语言制作一个HTTP请求？
+              </NAlert>
             </div>
           </template>
           <template v-else>

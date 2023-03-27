@@ -30,11 +30,11 @@ const { iconRender } = useIconRender()
 const textRef = ref<HTMLElement>()
 
 const options = [
-  {
-    label: t('chat.copy'),
-    key: 'copyText',
-    icon: iconRender({ icon: 'ri:file-copy-2-line' }),
-  },
+  // {
+  //   label: t('chat.copy'),
+  //   key: 'copyText',
+  //   icon: iconRender({ icon: 'ri:file-copy-2-line' }),
+  // },
   {
     label: t('common.delete'),
     key: 'delete',

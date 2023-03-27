@@ -32,6 +32,12 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: '/error',
+    name: 'error',
+    component: () => import('@/views/exception/error/index.vue'),
+  },
+
+  {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
     redirect: '/404',

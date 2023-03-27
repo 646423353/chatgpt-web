@@ -10,6 +10,7 @@ interface Props {
 interface Emit {
   (ev: 'export'): void
   (ev: 'toggleUsingContext'): void
+  (ev: 'backApp'): void
 }
 
 defineProps<Props>()
@@ -39,11 +40,15 @@ function handleExport() {
 function toggleUsingContext() {
   emit('toggleUsingContext')
 }
+
+function backApp() {
+  emit('backApp')
+}
 </script>
 
 <template>
   <header
-    class="sticky top-0 left-0 right-0 z-30 border-b dark:border-neutral-800 bg-white/80 dark:bg-black/20 backdrop-blur"
+    class="sticky top-0 left-0 right-0 z-30 border-b dark:border-neutral-800 bg-white/80 dark:bg-black/20 backdrop-blur pt-3"
   >
     <div class="relative flex items-center justify-between min-w-0 overflow-hidden h-14">
       <div class="flex items-center">
@@ -70,6 +75,11 @@ function toggleUsingContext() {
         <HoverButton @click="handleExport">
           <span class="text-xl text-[#4f555e] dark:text-white">
             <SvgIcon icon="ri:download-2-line" />
+          </span>
+        </HoverButton>
+        <HoverButton @click="backApp">
+          <span class="text-xl text-[#4f555e] dark:text-white">
+            <SvgIcon icon="material-symbols:arrow-top-left" />
           </span>
         </HoverButton>
       </div>

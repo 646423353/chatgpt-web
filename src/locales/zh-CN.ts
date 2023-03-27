@@ -46,6 +46,9 @@ export default {
     deleteMessageConfirm: '是否删除此消息?',
     deleteHistoryConfirm: '确定删除此记录?',
     clearHistoryConfirm: '确定清空聊天记录?',
+    backApp: '退出ChatGPT',
+    backAppConfirm: '是否退出ChatGPT?',
+    backAppFailed: '退出失败',
   },
   setting: {
     setting: '设置',
