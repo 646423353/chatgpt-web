@@ -584,11 +584,17 @@ onUnmounted(() => {
                 type="textarea"
                 :placeholder="placeholder"
                 :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }"
+                maxlength="1999"
+                show-count
                 @input="handleInput"
                 @focus="handleFocus"
                 @blur="handleBlur"
                 @keypress="handleEnter"
-              />
+              >
+                <template #count="{ value }">
+                  {{ `${value.length}/2000` }}
+                </template>
+              </NInput>
             </template>
           </NAutoComplete>
           <NButton type="primary" :disabled="buttonDisabled" @click="handleSubmit">

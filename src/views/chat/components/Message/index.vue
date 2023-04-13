@@ -32,20 +32,6 @@ const { iconRender } = useIconRender()
 
 const textRef = ref<HTMLElement>()
 
-<<<<<<< HEAD
-const options = [
-  // {
-  //   label: t('chat.copy'),
-  //   key: 'copyText',
-  //   icon: iconRender({ icon: 'ri:file-copy-2-line' }),
-  // },
-  {
-    label: t('common.delete'),
-    key: 'delete',
-    icon: iconRender({ icon: 'ri:delete-bin-line' }),
-  },
-]
-=======
 const asRawText = ref(props.inversion)
 
 const messageRef = ref<HTMLElement>()
@@ -74,7 +60,6 @@ const options = computed(() => {
 
   return common
 })
->>>>>>> c3f431118b186bed950a4d673a5e85be2c976e23
 
 function handleSelect(key: 'copyText' | 'delete' | 'toggleRenderType') {
   switch (key) {

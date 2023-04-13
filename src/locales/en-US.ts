@@ -46,14 +46,11 @@ export default {
     deleteMessageConfirm: 'Are you sure to delete this message?',
     deleteHistoryConfirm: 'Are you sure to clear this history?',
     clearHistoryConfirm: 'Are you sure to clear chat history?',
-<<<<<<< HEAD
     backApp: '退出ChatGPT',
     backAppConfirm: '是否退出ChatGPT?',
     backAppFailed: '退出失败',
-=======
     preview: 'Preview',
     showRawText: 'Show as raw text',
->>>>>>> c3f431118b186bed950a4d673a5e85be2c976e23
   },
   setting: {
     setting: 'Setting',
