@@ -17,7 +17,7 @@ const show = ref(false)
 const collapsed = computed(() => appStore.siderCollapsed)
 
 function handleAdd() {
-  chatStore.addHistory({ title: '新对话', uuid: Date.now(), isEdit: false })
+  chatStore.addHistory({ title: '新建聊天', uuid: Date.now(), isEdit: false })
   if (isMobile.value)
     appStore.setSiderCollapsed(true)
 }
@@ -73,7 +73,7 @@ watch(
       <main class="flex flex-col flex-1 min-h-0">
         <div class="p-4">
           <NButton dashed block @click="handleAdd">
-            新对话
+            {{ $t('chat.newChatButton') }}
           </NButton>
         </div>
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
@@ -81,7 +81,7 @@ watch(
         </div>
         <!-- <div class="p-4">
           <NButton block @click="show = true">
-            Prompt Store
+            {{ $t('store.siderButton') }}
           </NButton>
         </div> -->
       </main>
